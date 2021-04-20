@@ -1,53 +1,81 @@
 const router = require("express").Router();
+// const mongoose = require("mongoose");
 const { Workout } = require("../../models");
 
 router.get("/", (req, res) => {
-    try {
-        const workoutData = Workout.findAll();
-        res.status(200).json(workoutData);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
-router.post("/:id", (req, res) => {
-    try {
-        const newExercise = Workout.create({
-            type: req.body.type,
-            name: req.body.name,
-            duration: req.body.duration,
-            weight: req.body.weight,
-            reps: req.body.reps,
-            sets: req.body.sets,
-            distance: req.body.distance,
+    Workout.find({})
+        .then(workout => {
+            res.json(workout);
+        })
+        .catch(err => {
+            res.json(err);
         });
-        res.status(200).json(newExercise);
-    } catch (err) {
-        res.status(400).json(err);
-    }
 });
 
 router.post("/", (req, res) => {
-    Workout.update(
-        {
-            type: req.body.type,
-            name: req.body.name,
-            duration: req.body.duration,
-            weight: req.body.weight,
-            reps: req.body.reps,
-            sets: req.body.sets,
-            distance: req.body.distance,
-        },
-        {
-            where: {
-                id: req.params.id,
-            },
-        }
-    )
-        .then((updatedPost) => {
-            res.json(updatedPost);
+    Workout.create({ type: "workout" })
+        .then(workout => {
+            res.json(workout);
         })
-        .catch((err) => res.json(err));
+        .catch(err => {
+            res.json(err);
+        });
+})
+
+router.post("/:id", (req, res) => {
+    Workout.create({
+        type: req.body.type,
+        name: req.body.name,
+        duration: req.body.duration,
+        weight: req.body.weight,
+        reps: req.body.reps,
+        sets: req.body.sets,
+        distance: req.body.distance,
+    },
+    )
+        .then(newExercise => {
+            res.json(newExercise);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+});
+
+router.put("/:id", ({ body, params }, res) => {
+    const workoutId = params.id;
+    let savedExercises = [];
+
+    Workout.find({ _id: workoutId })
+        .then(dbWorkout => {
+            savedExercises = dbWorkout[0].exercises;
+            res.json(dbWorkout[0].exercises);
+            let allExercises = [...savedExercises, body]
+            console.log(allExercises)
+            updateWorkout(allExercises)
+        })
+        .catch(err => {
+            res.json(err);
+        });
+
+    function updateWorkout(exercises) {
+        Workout.findByIdAndUpdate(workoutId, { exercises: exercises }, function (err, doc) {
+            if (err) {
+                console.log(err)
+            }
+
+        })
+    }
+
+})
+
+router.get("/range", (req, res) => {
+    Workout.find({})
+        .then(workout => {
+            res.json(workout);
+        })
+        .catch(err => {
+            res.json(err);
+        });
 });
 
 module.exports = router;
