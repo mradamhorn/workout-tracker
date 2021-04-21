@@ -1,5 +1,4 @@
 const router = require("express").Router();
-// const mongoose = require("mongoose");
 const { Workout } = require("../../models");
 
 router.get("/", (req, res) => {
@@ -70,6 +69,9 @@ router.put("/:id", ({ body, params }, res) => {
 
 router.get("/range", (req, res) => {
     Workout.find({})
+        .sort({ day: -1 })
+        .limit(7)
+        .sort({ day: 1 })
         .then(workout => {
             res.json(workout);
         })
