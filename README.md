@@ -4,6 +4,7 @@
 
 ## Table of Contents
 - [Description](#description)
+- [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributors](#contributors)
@@ -14,7 +15,17 @@
 ---
 
 ## Description
-This is a site for a person to track their workouts. It allows a user to input their resistence-based and cardio-based exercises and aggregate the duration of a workout, number of exercises performed, distance covered, weight lifted, and number of sets and reps performed. All of the information is compiled into charts and graphs as part of the Workout Dashboard. This application uses JavaScript, HTML, CSS, MongoDB and Mongoose for database functionality, and deployed on Heroku. 
+This is a site for a person to track their workouts. It allows a user to input their resistence-based and cardio-based exercises and aggregate the duration of a workout, number of exercises performed, distance covered, weight lifted, and number of sets and reps performed. All of the information is compiled into charts and graphs as part of the Workout Dashboard. This application uses JavaScript, HTML, CSS, MongoDB and Mongoose for database functionality, and deployed on Heroku.
+
+---
+
+## Screenshots
+
+![Homepage](images/homepage.png)
+
+![Add Your Exercise](images/addexercise.png)
+
+![Dashboard](images/dashboard.png)
 
 ---
 
